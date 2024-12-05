@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Holerite</title>
+    <style>
+        /* Resetando algumas propriedades padrão */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        :root {
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --header-bg-color: #007aff;
+            --button-bg-color: #007aff;
+            --button-hover-color: #005bb5;
+        }
+
+        body.dark-mode {
+            --background-color: #121212;
+            --text-color: #f4f4f4;
+            --header-bg-color: #1f1f1f;
+            --button-bg-color: #333;
+            --button-hover-color: #555;
+        }
+
+        /* Estilo do cabeçalho */
+        header {
+            background-color: var(--header-bg-color);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilo para a seção de consulta */
+        .consulta-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .consulta-container h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .input-group input:focus {
+            border-color: #4caf50;
+            outline: none;
+        }
+
+        button {
+            background-color: var(--button-bg-color);
+            color: white;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--button-hover-color);
+        }
+
+        /* Estilo do rodapé */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
+        }
+
+        .theme-toggle {
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Holerite - Folha de Pagamento</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Consultar</a></li>
+                <li><a href="https://www.unisa.br/a-unisa2/">Sobre</a></li>
+            </ul>
+        </nav>
+        <button class="theme-toggle" onclick="toggleTheme()">Alternar Tema</button>
+    </header>
+
+    <section class="consulta">
+        <div class="consulta-container">
+            <h2>Consulta de Holerite</h2>
+            <form id="consultaForm">
+                <div class="input-group">
+                    <label for="funcionario-id">ID do Funcionário:</label>
+                    <input type="number" id="funcionario-id" name="funcionario-id" placeholder="Digite o ID" required>
+                </div>
+                <div class="input-group">
+                    <label for="mes-ano">Mês e Ano:</label>
+                    <input type="month" id="mes-ano" name="mes-ano" required>
+                </div>
+                <button type="button" onclick="gerarLink()">Consultar</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Holerite - Todos os Direitos Reservados</p>
+    </footer>
+    <script>
+        function gerarLink() {
+            const funcionarioId = document.getElementById("funcionario-id").value.trim();
+            const mesAno = document.getElementById("mes-ano").value.trim();
+
+            if (!funcionarioId || !mesAno) {
+                alert("Por favor, preencha todos os campos!");
+                return;
+            }
+
+            const link = `documentos/${funcionarioId}_${mesAno}.pdf`;
+
+            // Abre o arquivo em uma nova aba
+            window.open(link, "_blank");
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+</body>
+
+</html>
